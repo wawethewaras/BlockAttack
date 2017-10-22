@@ -54,7 +54,7 @@ public class UnitController : MonoBehaviour {
 
                 if (canShoot)
                 {
-                    BulletController temp = Instantiate(bullet, transform.position, transform.rotation);
+                    Instantiate(bullet, transform.position, transform.rotation);
 
                     StartCoroutine(ShootCooldown(shootCoolDown));
                 }

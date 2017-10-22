@@ -1,20 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitGoalController : MonoBehaviour {
 
     private string enemyTag = "Unit";
 
-    void Start () {
-		
-	}
+    private Health myHealth;
 
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == enemyTag) {
-            print("doest damage");
-            Destroy(other.gameObject);
-        }
+    public Text winGameText;
+    public Text healthStatus;
+
+    void Start () {
+        myHealth = GetComponent<Health>();
 
     }
+
+    void Update() {
+        if (myHealth.CurrentHealth <= 5) {
+            print("Game over!");
+            winGameText.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+
 }

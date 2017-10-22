@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a6107f24588445b646dd3fddca15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 5
   damageMaterial: {fileID: 2100000, guid: 413e2d20f584ac84b9e8e15cce7e7d2f, type: 2}
 --- !u!114 &114486059256501944
 MonoBehaviour:
@@ -98,7 +98,6 @@ MonoBehaviour:
     m_Bits: 1024
   bullet: {fileID: 114167320598408868, guid: a8710084ce9b64a4891d8f62dafb6e39, type: 2}
   shootCoolDown: 1.5
-  health: 3
 --- !u!212 &212546697384116334
 SpriteRenderer:
   m_ObjectHideFlags: 1

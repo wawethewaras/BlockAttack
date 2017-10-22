@@ -20,8 +20,11 @@ public class UnitSpawnController : MonoBehaviour {
 
     void OnMouseDown()
     {
+        float offset = Random.Range(-2, 2);
         if (canSpawnUnit && GameController.instance.EnoughResources(5)) {
-            UnitController unit = Instantiate(enemy, transform.position, transform.rotation);
+            Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + offset);
+
+            Instantiate(enemy, spawnPosition, transform.rotation);
             GameController.instance.UseResources(5);
             StartCoroutine(GlobalCooldown());
         }

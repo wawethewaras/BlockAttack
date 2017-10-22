@@ -15,9 +15,6 @@ public class TurretController : MonoBehaviour {
     private float shootCoolDown;
     private bool canShoot = true;
 
-    [SerializeField]
-    private int health;
-
     enum States
     {
         Idle,
@@ -41,7 +38,7 @@ public class TurretController : MonoBehaviour {
             case States.Attacking:
                 if (canShoot)
                 {
-                    BulletController temp = Instantiate(bullet, transform.position, transform.rotation);
+                    Instantiate(bullet, transform.position, transform.rotation);
 
                     StartCoroutine(ShootCooldown(shootCoolDown));
                 }

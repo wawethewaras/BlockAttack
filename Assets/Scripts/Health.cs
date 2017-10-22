@@ -6,11 +6,19 @@ public class Health : MonoBehaviour {
 
     public int maxHealth;
     private int currentHealth;
+    public int CurrentHealth {
+        get {
+            return currentHealth;
+        }
+    }
 
     public Material damageMaterial;
     private Material defaultMaterial;
 
     private SpriteRenderer mySpriteRenderer;
+
+
+
 
     void Start () {
         currentHealth = maxHealth;
