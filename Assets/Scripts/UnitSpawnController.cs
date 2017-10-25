@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class UnitSpawnController : MonoBehaviour {
 
-    [SerializeField]
-    private UnitController enemy;
-
 
     private bool canSpawnUnit = true;
 
-    void Start () {
-		
-	}
+    private SpriteRenderer myRenderer;
+    void Awake () {
+        myRenderer = GetComponent<SpriteRenderer>();
+
+    }
 	
 	void Update () {
 
@@ -21,14 +20,24 @@ public class UnitSpawnController : MonoBehaviour {
     void OnMouseDown()
     {
         float offset = Random.Range(-2, 2);
-        if (canSpawnUnit && GameController.instance.EnoughResources(5)) {
+        if (canSpawnUnit && GameController.instance.EnoughResources(5) && GameController.instance.myUnitMouse.unitPlacedOnClick != null) {
             Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + offset);
 
-            Instantiate(enemy, spawnPosition, transform.rotation);
+            Instantiate(GameController.instance.myUnitMouse.unitPlacedOnClick, spawnPosition, transform.rotation);
             GameController.instance.UseResources(5);
             StartCoroutine(GlobalCooldown());
         }
 
+    }
+
+    void OnMouseEnter()
+    {
+        myRenderer.color = Color.cyan;
+    }
+
+    void OnMouseExit()
+    {
+        myRenderer.color = Color.blue;
     }
 
     private IEnumerator GlobalCooldown() {

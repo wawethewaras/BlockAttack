@@ -10,9 +10,14 @@ public class GameController : MonoBehaviour {
 
     public Text uiText;
 
-	void Awake () {
+    public UnitMouse myUnitMouse;
+
+    public GameObject[] spawnAres;
+
+    void Awake () {
         instance = this;
         uiText.text = "Resources: " + resouces;
+        DisableSpawnAreas();
     }
 	
 	void Update () {
@@ -33,4 +38,27 @@ public class GameController : MonoBehaviour {
         resouces += amount;
         uiText.text = "Resources: " + resouces;
     }
+
+    public void SetMouseCursor() {
+
+    }
+
+
+    public void EnableSpawnAreas() {
+        foreach(GameObject game in spawnAres) {
+            game.SetActive(true);
+        }
+    }
+    public void DisableSpawnAreas()
+    {
+        foreach (GameObject game in spawnAres)
+        {
+            game.SetActive(false);
+        }
+    }
+}
+
+[System.Serializable]
+public class UnitMouse {
+    public GameObject unitPlacedOnClick;
 }
