@@ -17,27 +17,29 @@ public class UnitSpawnController : MonoBehaviour {
 
 	}
 
-    void OnMouseDown()
-    {
-        float offset = Random.Range(-2, 2);
-        if (canSpawnUnit && GameController.instance.EnoughResources(5) && GameController.instance.myUnitMouse.unitPlacedOnClick != null) {
-            Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + offset);
+    //void OnMouseDown()
+    //{
+    //    float offset = Random.Range(-2, 2);
+    //    if (canSpawnUnit && GameController.instance.EnoughResources(5) && GameController.instance.myUnitMouse.unitPlacedOnClick != null) {
+    //        Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + offset);
 
-            Instantiate(GameController.instance.myUnitMouse.unitPlacedOnClick, spawnPosition, transform.rotation);
-            GameController.instance.UseResources(5);
-            StartCoroutine(GlobalCooldown());
-        }
+    //        Instantiate(GameController.instance.myUnitMouse.unitPlacedOnClick, spawnPosition, transform.rotation);
+    //        GameController.instance.UseResources(5);
+    //        StartCoroutine(GlobalCooldown());
+    //    }
 
-    }
+    //}
 
     void OnMouseEnter()
     {
         myRenderer.color = Color.cyan;
+        GameController.instance.currentSpawnArea = this;
     }
 
     void OnMouseExit()
     {
         myRenderer.color = Color.blue;
+        GameController.instance.currentSpawnArea = null;
     }
 
     private IEnumerator GlobalCooldown() {

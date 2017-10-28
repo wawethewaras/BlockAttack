@@ -18,32 +18,45 @@ public class UnitUIController : MonoBehaviour {
 	}
 
 
+    public void onMouseEnter()
+    {
+        GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
+
+        buttonImage.color = Color.black;
+        //GameController.instance.EnableSpawnAreas();
+    }
+    public void onMouseExit()
+    {
+        buttonImage.color = Color.white;
+        //GameController.instance.myUnitMouse.unitPlacedOnClick = null;
+    }
+
     public void PlaceUnit()
     {
-        if (unitPlacingEnabled && currentUnitController == this)
-        {
+        //if (unitPlacingEnabled && currentUnitController == this)
+        //{
 
-            unitPlacingEnabled = false;
-            GameController.instance.myUnitMouse.unitPlacedOnClick = null;
-            GameController.instance.DisableSpawnAreas();
-            buttonImage.color = Color.white;
+        //    unitPlacingEnabled = false;
+        //    GameController.instance.myUnitMouse.unitPlacedOnClick = null;
+        //    GameController.instance.DisableSpawnAreas();
+        //    buttonImage.color = Color.white;
 
-        }
-        else if (unitPlacingEnabled && currentUnitController != this)
-        {
-            currentUnitController.buttonImage.color = Color.white;
-            currentUnitController = this;
-            GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
+        //}
+        //else if (unitPlacingEnabled && currentUnitController != this)
+        //{
+        //    currentUnitController.buttonImage.color = Color.white;
+        //    currentUnitController = this;
+        //    GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
 
-            buttonImage.color = Color.black;
-        }
-        else {
-            GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
-            unitPlacingEnabled = true;
-            buttonImage.color = Color.black;
-            currentUnitController = this;
-            GameController.instance.EnableSpawnAreas();
-
-        }
+        //    buttonImage.color = Color.black;
+        //}
+        //else {
+            //GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
+            //unitPlacingEnabled = true;
+            //buttonImage.color = Color.black;
+            //currentUnitController = this;
+            //GameController.instance.EnableSpawnAreas();
+            //GameController.instance.MouseHeldDown();
+        //}
     }
 }
