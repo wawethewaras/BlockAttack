@@ -32,13 +32,13 @@ public class UnitSpawnController : MonoBehaviour {
 
     void OnMouseEnter()
     {
-        myRenderer.color = Color.cyan;
+        myRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.5f);
         GameController.instance.currentSpawnArea = this;
     }
 
     void OnMouseExit()
     {
-        myRenderer.color = Color.blue;
+        myRenderer.color = Color.white;
         GameController.instance.currentSpawnArea = null;
     }
 

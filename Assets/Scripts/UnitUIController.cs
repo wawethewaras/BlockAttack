@@ -14,15 +14,16 @@ public class UnitUIController : MonoBehaviour {
     public Image buttonImage;
 
     void Start () {
-		
-	}
+        buttonImage.sprite = unitPlacing.GetComponent<SpriteRenderer>().sprite;
+
+    }
 
 
     public void onMouseEnter()
     {
         GameController.instance.myUnitMouse.unitPlacedOnClick = unitPlacing;
 
-        buttonImage.color = Color.black;
+        buttonImage.color = new Color(1, 1, 1, 0.8f);
         //GameController.instance.EnableSpawnAreas();
     }
     public void onMouseExit()

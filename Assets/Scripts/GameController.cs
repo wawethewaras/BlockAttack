@@ -81,10 +81,9 @@ public class GameController : MonoBehaviour {
     private IEnumerator WhileMouseDown() {
         mouseDown = true;
         EnableSpawnAreas();
-        GameController.instance.cursor.gameObject.SetActive(true);
-        GameController.instance.cursor.sprite = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().sprite;
-        GameController.instance.cursor.color = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().color;
-        GameController.instance.cursor.gameObject.transform.localScale = myUnitMouse.unitPlacedOnClick.transform.localScale;
+        cursor.gameObject.SetActive(true);
+        cursor.sprite = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().sprite;
+        cursor.gameObject.transform.localScale = myUnitMouse.unitPlacedOnClick.transform.localScale;
         while (Input.GetMouseButton(0)) {
             yield return null;
         }

@@ -17,7 +17,7 @@ public class Health : MonoBehaviour {
 
     private SpriteRenderer mySpriteRenderer;
 
-
+    public bool destroyWhen0Health = true;
 
 
     void Start () {
@@ -28,7 +28,7 @@ public class Health : MonoBehaviour {
 
     public void ReduceHealth(int damage) {
         currentHealth -= damage;
-        if (currentHealth <= 0) {
+        if (currentHealth <= 0 && destroyWhen0Health) {
             Destroy(gameObject);
         }
         StartCoroutine(ChangeMaterial());
