@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretController : MonoBehaviour {
+public class TurretController : Building {
 
     [SerializeField]
     private int attackRange;

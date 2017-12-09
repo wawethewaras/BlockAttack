@@ -1,19 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class UnitController : MonoBehaviour {
+
+    public SpriteRenderer mySpriteRenderer;
+    public LayerMask enemyCollisionLayerMask;
+
 
     [SerializeField]
     private float movespeed;
 
     [SerializeField]
     private float attackRange;
-
-    private Health myHealth;
-    public LayerMask collisionLayerMask;
-
-    public Health Enemy;
 
     [SerializeField]
     private BulletController bullet;
@@ -28,9 +26,6 @@ public class UnitController : MonoBehaviour {
 
     private States currentState = States.Walking;
 
-    void Start() {
-        myHealth = GetComponent<Health>();
-    }
 
 	void Update () {
         MoveToWayPoint();
@@ -42,10 +37,7 @@ public class UnitController : MonoBehaviour {
         switch(currentState){
             case States.Walking:
                 transform.Translate(Vector2.down * movespeed * Time.deltaTime);
-                Debug.DrawRay(transform.position, Vector2.down, Color.green);
-                RaycastHit2D enemy;
-                if (enemy = Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask)) {
-                    Enemy = enemy.collider.GetComponent<Health>();
+                if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyCollisionLayerMask)) {
                     currentState = States.Attacking;
                 }
                 break;
@@ -54,15 +46,10 @@ public class UnitController : MonoBehaviour {
 
                 if (canShoot)
                 {
-                    Instantiate(bullet, transform.position, transform.rotation);
 
                     StartCoroutine(ShootCooldown(shootCoolDown));
                 }
-                //if (Enemy == null)
-                //{
-                //    currentState = States.Walking;
-                //}
-                if (!Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask))
+                if (!Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyCollisionLayerMask))
                 {
                     currentState = States.Walking;
                 }
@@ -76,6 +63,7 @@ public class UnitController : MonoBehaviour {
 
     public IEnumerator ShootCooldown(float cooldown)
     {
+        Instantiate(bullet, transform.position, transform.rotation);
         canShoot = false;
         yield return new WaitForSeconds(cooldown);
         canShoot = true;

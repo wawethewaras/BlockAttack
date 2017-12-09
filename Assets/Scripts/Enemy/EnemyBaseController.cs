@@ -1,28 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EnemyBaseController : MonoBehaviour {
+public class EnemyBaseController : Building {
 
+    public static int goalCount = 0;
 
- //   public UnitGoalController[] unitBases;
+    public bool active;
 
- //   public event Action BaseDestoyed;
+    void Start () {
+        goalCount += 1;
+        active = true;
+    }
 
- //   public 
-	
-	//void Start () {
-		
-	//}
-	
-	//// Update is called once per frame
-	//void Update () {
-		
-	//}
+    void Update() {
+        if (myHealth.CurrentHealth <= 0 && active) {
+            active = false;
+            goalCount--;
+            gameObject.SetActive(false);
+        }
+        if (goalCount <= 0) {
+            print("Game over!");
+            WinGameUI.Instance.WinGame();
+            Time.timeScale = 0;
+        }
+    }
 
- //   public void AllBasesDestoyed() {
- //       if (unitBases.Count <= 0) {
- //           Debug.log("Game over");
- //       }
- //   }
 }

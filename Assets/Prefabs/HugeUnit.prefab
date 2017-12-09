@@ -117,12 +117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480508805831c5144ba48932224966bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 5
-  attackRange: 2
-  collisionLayerMask:
+  mySpriteRenderer: {fileID: 212977955119546124}
+  enemyCollisionLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  Enemy: {fileID: 0}
+  movespeed: 5
+  attackRange: 2
   bullet: {fileID: 114624901204107856, guid: e19f3a08ded9a174ebad36846db8cf10, type: 2}
   shootCoolDown: 0.5
 --- !u!114 &114915413555969452
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   damageMaterial: {fileID: 2100000, guid: 413e2d20f584ac84b9e8e15cce7e7d2f, type: 2}
+  destroyWhen0Health: 1
 --- !u!212 &212977955119546124
 SpriteRenderer:
   m_ObjectHideFlags: 1

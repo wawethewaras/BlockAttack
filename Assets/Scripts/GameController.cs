@@ -2,41 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-public class GameController : MonoBehaviour {
+public class GameController : Singleton<GameController> {
 
-    public static GameController instance;
     public int resouces;
 
-    public Text uiText;
-
-    public UnitMouse myUnitMouse;
-
-    public GameObject[] spawnAres;
+    public UnitController myUnitMouse;
 
     public bool mouseDown;
 
     public UnitUIController currentUnitUIController;
 
-    public UnitSpawnController currentSpawnArea;
+    //public UnitSpawnController currentSpawnArea;
 
+    public event Action resourcesAltered;
 
-  
+    public void ResourcesAltered() {
+        if (resourcesAltered != null) {
+            resourcesAltered();
+        }
+    }
 
     private CursorController theCursor;
 
-    void Awake () {
-        instance = this;
+    void Start () {
         theCursor = CursorController.Instance;
-        uiText.text = "Resources: " + resouces;
         DisableSpawnAreas();
     }
 	
 	void Update () {
-        if (Input.GetMouseButtonDown(0) && myUnitMouse.unitPlacedOnClick != null) {
+        if (Input.GetMouseButtonDown(0) && myUnitMouse != null) {
             MouseHeldDown();
         }
-        if (Input.GetMouseButtonUp(0) && currentSpawnArea != null) {
+        if (Input.GetMouseButtonUp(0) && UnitSpawnController.currentSpawnArea != null) {
             SpawnUnit();
         }
         theCursor.cursor.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -48,30 +47,22 @@ public class GameController : MonoBehaviour {
 
     public void UseResources(int amount) {
         resouces -= amount;
-        uiText.text = "Resources: " + resouces;
-
+        ResourcesAltered();
     }
-    public void AddResources(int amount)
-    {
+    public void AddResources(int amount) {
         resouces += amount;
-        uiText.text = "Resources: " + resouces;
+        ResourcesAltered();
     }
-
-    public void SetMouseCursor() {
-
-    }
-
 
     public void EnableSpawnAreas() {
-        foreach(GameObject game in spawnAres) {
-            game.SetActive(true);
+        foreach(UnitSpawnController game in UnitSpawnController.spawnAreas) {
+            game.gameObject.SetActive(true);
         }
     }
-    public void DisableSpawnAreas()
-    {
-        foreach (GameObject game in spawnAres)
+    public void DisableSpawnAreas() {
+        foreach (UnitSpawnController game in UnitSpawnController.spawnAreas)
         {
-            game.SetActive(false);
+            game.gameObject.SetActive(false);
         }
     }
 
@@ -84,12 +75,12 @@ public class GameController : MonoBehaviour {
         mouseDown = true;
         EnableSpawnAreas();
         theCursor.cursor.gameObject.SetActive(true);
-        theCursor.cursor.sprite = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().sprite;
-        theCursor.cursor.gameObject.transform.localScale = myUnitMouse.unitPlacedOnClick.transform.localScale;
+        theCursor.cursor.sprite = myUnitMouse.mySpriteRenderer.sprite;
+        theCursor.cursor.gameObject.transform.localScale = myUnitMouse.transform.localScale;
         while (Input.GetMouseButton(0)) {
             yield return null;
         }
-        myUnitMouse.unitPlacedOnClick = null;
+        myUnitMouse = null;
         DisableSpawnAreas();
         mouseDown = false;
         theCursor.cursor.gameObject.SetActive(false);
@@ -99,13 +90,14 @@ public class GameController : MonoBehaviour {
 
     void SpawnUnit()
     {
-        float offset = Random.Range(-2, 2);
-        if (canSpawnUnit && GameController.instance.EnoughResources(5) && GameController.instance.myUnitMouse.unitPlacedOnClick != null)
+        float offset = UnityEngine.Random.Range(-2, 2);
+        if (canSpawnUnit && GameController.instance.EnoughResources(5) && myUnitMouse != null)
         {
-            Vector2 spawnPosition = new Vector2(currentSpawnArea.transform.position.x, currentSpawnArea.transform.position.y + offset);
+            Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x, UnitSpawnController.currentSpawnArea.transform.position.y + offset);
 
-            Instantiate(GameController.instance.myUnitMouse.unitPlacedOnClick, spawnPosition, transform.rotation);
-            GameController.instance.UseResources(5);
+            Instantiate(myUnitMouse, spawnPosition, transform.rotation);
+            UseResources(5);
+            UnitSpawnController.currentSpawnArea.ReturnToDefaultColor();
             StartCoroutine(GlobalCooldown());
         }
 
@@ -119,7 +111,3 @@ public class GameController : MonoBehaviour {
     }
 }
 
-[System.Serializable]
-public class UnitMouse {
-    public GameObject unitPlacedOnClick;
-}
