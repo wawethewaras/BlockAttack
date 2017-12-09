@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class UnitController : MonoBehaviour {
 
+    public Animator myAnimator;
     public SpriteRenderer mySpriteRenderer;
     public LayerMask enemyCollisionLayerMask;
 
@@ -29,8 +30,12 @@ public class UnitController : MonoBehaviour {
 
     private States currentState = States.Walking;
 
+    public void Awake()
+    {
+        myAnimator = GetComponent<Animator>();
+    }
 
-	void Update () {
+    void Update () {
         MoveToWayPoint();
 
     }
@@ -39,8 +44,9 @@ public class UnitController : MonoBehaviour {
 
         switch(currentState){
             case States.Walking:
-                transform.Translate(Vector2.down * movespeed * Time.deltaTime);
-                if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyCollisionLayerMask)) {
+                transform.Translate(Vector2.up * movespeed * Time.deltaTime);
+                if (Physics2D.Raycast(transform.position, Vector2.up, attackRange, enemyCollisionLayerMask)) {
+                    myAnimator.SetBool("isAttacking", true);
                     currentState = States.Attacking;
                 }
                 break;
@@ -52,8 +58,10 @@ public class UnitController : MonoBehaviour {
 
                     StartCoroutine(ShootCooldown(shootCoolDown));
                 }
-                if (!Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyCollisionLayerMask))
+                if (!Physics2D.Raycast(transform.position, Vector2.up, attackRange, enemyCollisionLayerMask))
                 {
+                    myAnimator.SetBool("isAttacking", false);
+
                     currentState = States.Walking;
                 }
 

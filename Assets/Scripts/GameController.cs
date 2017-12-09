@@ -12,9 +12,8 @@ public class GameController : Singleton<GameController> {
 
     public UnitController myUnitMouse { set; get; }
 
-    private bool mouseDown;
-
     private UnitUIController currentUnitUIController;
+    private bool canSpawnUnit = true;
 
     public event Action resourcesAltered;
 
@@ -73,7 +72,6 @@ public class GameController : Singleton<GameController> {
     }
 
     private IEnumerator WhileMouseDown() {
-        mouseDown = true;
         EnableSpawnAreas();
         theCursor.cursor.gameObject.SetActive(true);
         theCursor.cursor.sprite = myUnitMouse.mySpriteRenderer.sprite;
@@ -83,11 +81,9 @@ public class GameController : Singleton<GameController> {
         }
         myUnitMouse = null;
         DisableSpawnAreas();
-        mouseDown = false;
         theCursor.cursor.gameObject.SetActive(false);
 
     }
-    private bool canSpawnUnit = true;
 
     void SpawnUnit()
     {

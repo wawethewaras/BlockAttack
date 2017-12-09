@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   damageMaterial: {fileID: 2100000, guid: 413e2d20f584ac84b9e8e15cce7e7d2f, type: 2}
+  destroyWhen0Health: 1
 --- !u!114 &114486059256501944
 MonoBehaviour:
   m_ObjectHideFlags: 1
