@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 50764929780652124}
   - component: {fileID: 114874744207335490}
   - component: {fileID: 114915413555969452}
-  - component: {fileID: 114103432008159476}
   m_Layer: 10
   m_Name: HugeUnit
   m_TagString: Unit
@@ -90,22 +89,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114103432008159476
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1397084797006660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29ba11ae5dee07d448150834ca27c66a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  damageToGive: 1
-  destroyAfterContact: 1
 --- !u!114 &114874744207335490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,7 +105,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   movespeed: 5
-  attackRange: 2
+  attackRange: 4
   bullet: {fileID: 114624901204107856, guid: e19f3a08ded9a174ebad36846db8cf10, type: 2}
   shootCoolDown: 0.5
 --- !u!114 &114915413555969452

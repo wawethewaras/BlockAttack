@@ -8,13 +8,13 @@ public class GameController : Singleton<GameController> {
 
     public int resouces;
 
-    public UnitController myUnitMouse;
+    public UnitController[] unitPlayerHas;
 
-    public bool mouseDown;
+    public UnitController myUnitMouse { set; get; }
 
-    public UnitUIController currentUnitUIController;
+    private bool mouseDown;
 
-    //public UnitSpawnController currentSpawnArea;
+    private UnitUIController currentUnitUIController;
 
     public event Action resourcesAltered;
 
@@ -32,7 +32,7 @@ public class GameController : Singleton<GameController> {
     }
 	
 	void Update () {
-        if (Input.GetMouseButtonDown(0) && myUnitMouse != null) {
+        if (Input.GetMouseButtonDown(0) && myUnitMouse != null && GameController.instance.EnoughResources(myUnitMouse.resourceCost)) {
             MouseHeldDown();
         }
         if (Input.GetMouseButtonUp(0) && UnitSpawnController.currentSpawnArea != null) {
@@ -45,7 +45,8 @@ public class GameController : Singleton<GameController> {
         return resouces >= amount;
     }
 
-    public void UseResources(int amount) {
+    public void UseResources(int amount)
+    {
         resouces -= amount;
         ResourcesAltered();
     }
@@ -91,12 +92,12 @@ public class GameController : Singleton<GameController> {
     void SpawnUnit()
     {
         float offset = UnityEngine.Random.Range(-2, 2);
-        if (canSpawnUnit && GameController.instance.EnoughResources(5) && myUnitMouse != null)
+        if (canSpawnUnit && myUnitMouse != null && GameController.instance.EnoughResources(myUnitMouse.resourceCost))
         {
             Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x, UnitSpawnController.currentSpawnArea.transform.position.y + offset);
 
             Instantiate(myUnitMouse, spawnPosition, transform.rotation);
-            UseResources(5);
+            UseResources(myUnitMouse.resourceCost);
             UnitSpawnController.currentSpawnArea.ReturnToDefaultColor();
             StartCoroutine(GlobalCooldown());
         }
@@ -105,7 +106,7 @@ public class GameController : Singleton<GameController> {
     private IEnumerator GlobalCooldown()
     {
         canSpawnUnit = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         canSpawnUnit = true;
 
     }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224124529832681752}
   - component: {fileID: 222922488489036270}
   - component: {fileID: 114126050166534072}
+  - component: {fileID: 114670312154365192}
   m_Layer: 5
   m_Name: ResourcesUI
   m_TagString: Untagged
@@ -61,6 +62,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Resources: 10'
+--- !u!114 &114670312154365192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987473133677494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede8bde9724f2c344b50a869220a4d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiText: {fileID: 114126050166534072}
 --- !u!222 &222922488489036270
 CanvasRenderer:
   m_ObjectHideFlags: 1

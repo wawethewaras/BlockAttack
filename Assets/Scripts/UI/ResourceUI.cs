@@ -16,6 +16,5 @@ public class ResourceUI : MonoBehaviour {
     }
 	public void UpdateResources () {
         uiText.text = "Resources: " + GameController.Instance.resouces;
-
     }
 }

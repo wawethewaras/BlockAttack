@@ -9,7 +9,6 @@ public class UnitUIController : MonoBehaviour {
 
     public static UnitUIController currentUnitController;
     public UnitController unitPlacing;
-    public static bool unitPlacingEnabled = false;
 
     public Image buttonImage;
 

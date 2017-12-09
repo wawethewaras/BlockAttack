@@ -6,6 +6,9 @@ public class UnitController : MonoBehaviour {
     public SpriteRenderer mySpriteRenderer;
     public LayerMask enemyCollisionLayerMask;
 
+    [SerializeField]
+    public int resourceCost = 0;
+
 
     [SerializeField]
     private float movespeed;
