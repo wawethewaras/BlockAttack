@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class Health : MonoBehaviour {
 
     public bool destroyWhen0Health = true;
 
+    public event Action tookDamage;
 
     void Start () {
         currentHealth = maxHealth;
@@ -26,7 +28,14 @@ public class Health : MonoBehaviour {
         defaultMaterial = mySpriteRenderer.material;
     }
 
+    public void TookDamage() {
+        if (tookDamage != null) {
+            tookDamage();
+        }
+    }
+
     public void ReduceHealth(int damage) {
+        TookDamage();
         currentHealth -= damage;
         if (currentHealth <= 0 && destroyWhen0Health) {
             Destroy(gameObject);

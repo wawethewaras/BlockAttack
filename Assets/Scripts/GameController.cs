@@ -21,11 +21,13 @@ public class GameController : MonoBehaviour {
     public UnitSpawnController currentSpawnArea;
 
 
-    public SpriteRenderer cursor;
+  
 
+    private CursorController theCursor;
 
     void Awake () {
         instance = this;
+        theCursor = CursorController.Instance;
         uiText.text = "Resources: " + resouces;
         DisableSpawnAreas();
     }
@@ -37,7 +39,7 @@ public class GameController : MonoBehaviour {
         if (Input.GetMouseButtonUp(0) && currentSpawnArea != null) {
             SpawnUnit();
         }
-        cursor.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        theCursor.cursor.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public bool EnoughResources(int amount) {
@@ -81,16 +83,16 @@ public class GameController : MonoBehaviour {
     private IEnumerator WhileMouseDown() {
         mouseDown = true;
         EnableSpawnAreas();
-        cursor.gameObject.SetActive(true);
-        cursor.sprite = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().sprite;
-        cursor.gameObject.transform.localScale = myUnitMouse.unitPlacedOnClick.transform.localScale;
+        theCursor.cursor.gameObject.SetActive(true);
+        theCursor.cursor.sprite = myUnitMouse.unitPlacedOnClick.GetComponent<SpriteRenderer>().sprite;
+        theCursor.cursor.gameObject.transform.localScale = myUnitMouse.unitPlacedOnClick.transform.localScale;
         while (Input.GetMouseButton(0)) {
             yield return null;
         }
         myUnitMouse.unitPlacedOnClick = null;
         DisableSpawnAreas();
         mouseDown = false;
-        GameController.instance.cursor.gameObject.SetActive(false);
+        theCursor.cursor.gameObject.SetActive(false);
 
     }
     private bool canSpawnUnit = true;

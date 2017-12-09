@@ -9,8 +9,7 @@ public class UnitGoalController : MonoBehaviour {
 
     private Health myHealth;
 
-    public Text winGameText;
-    public Text healthStatus;
+
 
     public static int goalCount = 0;
 
@@ -30,7 +29,7 @@ public class UnitGoalController : MonoBehaviour {
         }
         if (goalCount <= 0) {
             print("Game over!");
-            winGameText.gameObject.SetActive(true);
+            WinGameUI.Instance.WinGame();
             Time.timeScale = 0;
         }
     }
