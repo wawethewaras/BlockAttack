@@ -32,6 +32,7 @@ public class TurretController : Building {
             case States.Idle:
                 if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask))
                 {
+                    myAnimator.SetBool("isAttacking", true);
                     currentState = States.Attacking;
                 }
                 break;
@@ -44,6 +45,8 @@ public class TurretController : Building {
                 }
                 if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask) == false)
                 {
+                    myAnimator.SetBool("isAttacking", false);
+
                     currentState = States.Idle;
                 }
                 break;

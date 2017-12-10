@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourceUI : MonoBehaviour {
 
-    public Text uiText;
+    public TextMeshProUGUI uiText;
      
 
     void Start () {

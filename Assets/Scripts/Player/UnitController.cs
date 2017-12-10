@@ -1,8 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class UnitController : MonoBehaviour {
 
+    public AudioSource myAudioSource;
     public Animator myAnimator;
     public Health myHealth;
     public SpriteRenderer mySpriteRenderer;
@@ -24,6 +31,9 @@ public class UnitController : MonoBehaviour {
     private float shootCoolDown;
     private bool canShoot = true;
 
+    [SerializeField]
+    private AudioClip soundWhenDamage;
+
     enum States {
         Walking,
         Attacking
@@ -35,7 +45,9 @@ public class UnitController : MonoBehaviour {
     {
         myAnimator = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
-        myHealth.died += RemoveUnit;
+        myAudioSource = GetComponent<AudioSource>();
+        myHealth.tookDamage += PlaySoundOnDamage;
+        myHealth.died += Dead;
     }
 
     void Update () {
@@ -85,14 +97,23 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    public void RemoveUnit() {
-        Destroy(gameObject);
-
+    public void Dead() {
+        myAudioSource.PlayOneShot(soundWhenDamage, 0.3f);
+        myAnimator.SetTrigger("Dead");
+        GetComponent<Collider2D>().enabled = false;
+        enabled = false;
+        mySpriteRenderer.sortingLayerName = "DeadBodies";
     }
 
     void OnBecameInvisible()
     {
-        RemoveUnit();
+        Destroy(gameObject);
+    }
+
+    public void PlaySoundOnDamage()
+    {
+        myAudioSource.PlayOneShot(soundWhenDamage);
+
     }
 
     //void OnTriggerEnter2D(Collider2D other)

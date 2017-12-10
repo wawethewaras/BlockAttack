@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(AudioSource))]
 public class StageManager : Singleton<StageManager> {
 
+    private AudioSource myAudioSource;
+    [SerializeField]
+    private AudioClip soundWhenStageCompleted;
+    [SerializeField]
+    private AudioClip soundOnVictory;
     public const int howMuchCameraMoves = 80;
 
     public Stage[] stages;
     public int currentStage = 0;
 
     void Start () {
+        myAudioSource = GetComponent<AudioSource>();
         StartGame();
     }
 	
@@ -38,18 +44,19 @@ public class StageManager : Singleton<StageManager> {
 
     public void EnableNewStage() {
         GameController.Instance.RemoveOldUnits();
-        DisableStage();
+        //DisableStage();
         currentStage++;
         if (stages.Length > currentStage)
         {
             stages[currentStage].EnableStage();
             SetGoalCount();
-
+            PlaySoundWhenStageCompleted();
             ChangeSpawnArea();
             ChangeCameraPosition();
         }
         else
         {
+            PlaySoundOnVictoryCompleted();
             print("Game over!");
             WinGameUI.Instance.WinGame();
             Time.timeScale = 0;
@@ -89,6 +96,16 @@ public class StageManager : Singleton<StageManager> {
 
     }
 
+    public void PlaySoundWhenStageCompleted()
+    {
+        myAudioSource.PlayOneShot(soundWhenStageCompleted, 0.3f);
+
+    }
+    public void PlaySoundOnVictoryCompleted()
+    {
+        myAudioSource.PlayOneShot(soundOnVictory, 0.3f);
+
+    }
 }
 [System.Serializable]
 public class Stage {

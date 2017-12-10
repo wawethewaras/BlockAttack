@@ -41,10 +41,11 @@ public class GameController : Singleton<GameController> {
     }
 	
 	void Update () {
-        if (Input.GetMouseButtonDown(0) && myUnitMouse != null && GameController.instance.EnoughResources(myUnitMouse.resourceCost)) {
+        if (Input.GetMouseButtonDown(0) && myUnitMouse != null && GameController.instance.EnoughResources(myUnitMouse.resourceCost) && PauseMenuController.Instance.paused == false) {
             MouseHeldDown();
         }
-        if (Input.GetMouseButtonUp(0) && UnitSpawnController.currentSpawnArea != null) {
+        if (Input.GetMouseButtonUp(0) && UnitSpawnController.currentSpawnArea != null && PauseMenuController.Instance.paused == false)
+        {
             SpawnUnit();
         }
         theCursor.cursor.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -103,7 +104,7 @@ public class GameController : Singleton<GameController> {
         theCursor.cursor.gameObject.SetActive(true);
         theCursor.cursor.sprite = myUnitMouse.mySpriteRenderer.sprite;
         theCursor.cursor.gameObject.transform.localScale = myUnitMouse.transform.localScale;
-        while (Input.GetMouseButton(0)) {
+        while (Input.GetMouseButton(0) && !PauseMenuController.Instance.paused) {
             yield return null;
         }
         mouseUp = true;
@@ -116,7 +117,7 @@ public class GameController : Singleton<GameController> {
     void SpawnUnit()
     {
         float offset = UnityEngine.Random.Range(-2, 2);
-        if (canSpawnUnit && myUnitMouse != null && GameController.instance.EnoughResources(myUnitMouse.resourceCost))
+        if (canSpawnUnit && myUnitMouse != null && EnoughResources(myUnitMouse.resourceCost))
         {
             Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x, UnitSpawnController.currentSpawnArea.transform.position.y + offset);
 
@@ -157,7 +158,7 @@ public class GameController : Singleton<GameController> {
         for (int i = 0; i < unitInField.Count; i++)
         {
             if (unitInField[i] != null) {
-                unitInField[i].RemoveUnit();
+                unitInField[i].Dead();
             }
         }
         unitInField.Clear();

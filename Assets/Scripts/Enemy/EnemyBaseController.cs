@@ -22,7 +22,10 @@ public class EnemyBaseController : Building {
             StageManager.Instance.EnableNewStage();
 
         }
-        gameObject.SetActive(false);
+        myAudioSource.PlayOneShot(soundOnDamage, 0.3f);
+        myAnimator.SetTrigger("Destroyed");
+        GetComponent<Collider2D>().enabled = false;
+        enabled = false;
 
     }
 

@@ -51,7 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370712f6f06a3de40a8cbb628e04a31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalCount: 0
   resouces: 100
   unitPlayerHas:
   - {fileID: 114497981693392356, guid: 90a0c54d88ee39a4e80a9be2afffc703, type: 2}
+  - {fileID: 114101924841648182, guid: 85df9a9a26acdfe4a8fa9790f881b2df, type: 2}
   - {fileID: 114874744207335490, guid: ac81a98002996374fb75cff7be1d2bf5, type: 2}
+  mouseUp: 1
+  unitInField: []

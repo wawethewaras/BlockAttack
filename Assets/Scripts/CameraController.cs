@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class CameraController : Singleton<CameraController> {
 
-    private Camera theCamera;
+
 	void Start () {
-        theCamera = GetComponent<Camera>();
-        //MoveCameraForward();
     }
 	
-	// Update is called once per frame
 	public void ChangeCameraPosition (Vector2 position) {
         transform.position = position;
     }

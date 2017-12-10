@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: BaseTowerACO
+  m_Controller: {fileID: 9100000, guid: 4553097e2a75e9f4984fdeb0bc4a3b35, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c67af488967187c44886e35269e53a26, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4dd44a54e3cb32446923e0be76f414e3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 64b3fefcb8b39b8468119624846bd9b2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4dd44a54e3cb32446923e0be76f414e3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c0e50126ca56b13439f702ec41272430, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 31e0c65b21b453d49b1088f40366aa74, type: 2}

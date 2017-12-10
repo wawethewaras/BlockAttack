@@ -11,13 +11,28 @@ public class UnitUIController : MonoBehaviour {
     [HideInInspector]
     public UnitController unitPlacing;
 
+    public Image buttonBG;
     public Image buttonImage;
     public TextMeshProUGUI unitCost;
     void Start () {
         buttonImage.sprite = unitPlacing.mySpriteRenderer.sprite;
-        unitCost.text = "" + unitPlacing.resourceCost; 
+        unitCost.text = "" + unitPlacing.resourceCost;
+        GameController.Instance.resourcesAltered += ChangeButtonIfNotEnoughResources;
+        ChangeButtonIfNotEnoughResources();
     }
 
+
+    public void ChangeButtonIfNotEnoughResources() {
+        if (unitPlacing.resourceCost > GameController.Instance.resouces)
+        {
+            unitCost.color = Color.red;
+            buttonBG.color = Color.grey;
+        }
+        else {
+            unitCost.color = Color.black;
+            buttonBG.color = Color.white;
+        }
+    }
 
     public void onMouseEnter() {
         if (GameController.Instance.mouseUp) {

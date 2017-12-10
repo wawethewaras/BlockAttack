@@ -7,6 +7,8 @@ public class BulletController : MonoBehaviour {
     public int bulletSpeed;
     public Direction myDirection = Direction.Up;
 
+    private Vector2 direction;
+
     public enum Direction {
         Up,
         Down
@@ -15,11 +17,15 @@ public class BulletController : MonoBehaviour {
 
     void Update() {
         if (myDirection == Direction.Up) {
-            transform.Translate(Vector2.up);
+            direction = Vector2.up;
 
         }
         else {
-            transform.Translate(Vector2.down);
+            direction = Vector2.down;
+        }
+
+        if (PauseMenuController.Instance.paused == false) {
+            transform.Translate(direction);
         }
     }
 
