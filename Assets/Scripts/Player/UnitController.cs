@@ -86,13 +86,13 @@ public class UnitController : MonoBehaviour {
     }
 
     public void RemoveUnit() {
-        GameController.numberOfUnitInField--;
+        Destroy(gameObject);
+
     }
 
     void OnBecameInvisible()
     {
-        GameController.numberOfUnitInField--;
-        Destroy(gameObject);
+        RemoveUnit();
     }
 
     //void OnTriggerEnter2D(Collider2D other)

@@ -18,8 +18,6 @@ public class Health : MonoBehaviour {
 
     private SpriteRenderer mySpriteRenderer;
 
-    public bool destroyWhen0Health = true;
-
     public event Action tookDamage;
     public event Action died;
     void Start () {
@@ -46,11 +44,6 @@ public class Health : MonoBehaviour {
         if (currentHealth <= 0)
         {
             Died();
-            if (destroyWhen0Health)
-            {
-                Destroy(gameObject);
-
-            }
         }
         else {
             StartCoroutine(ChangeMaterial());

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 
 public class GameController : Singleton<GameController> {
+    public int goalCount = 0;
 
     public int resouces;
 
@@ -19,7 +20,10 @@ public class GameController : Singleton<GameController> {
     public bool mouseUp = true;
 
 
-    public static int numberOfUnitInField = 0;
+    //public static int numberOfUnitInField = 0;
+    public List<UnitController> unitInField = new List<UnitController>();
+
+
     public event Action resourcesAltered;
 
     public void ResourcesAltered() {
@@ -86,6 +90,8 @@ public class GameController : Singleton<GameController> {
         }
         return cost;
     }
+
+
     public void MouseHeldDown()
     {
         StartCoroutine(WhileMouseDown());
@@ -114,11 +120,12 @@ public class GameController : Singleton<GameController> {
         {
             Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x, UnitSpawnController.currentSpawnArea.transform.position.y + offset);
 
-            Instantiate(myUnitMouse, spawnPosition, transform.rotation);
+            UnitController newUnit = Instantiate(myUnitMouse, spawnPosition, transform.rotation);
             UseResources(myUnitMouse.resourceCost);
             UnitSpawnController.currentSpawnArea.ReturnToDefaultColor();
             StartCoroutine(GlobalCooldown());
-            numberOfUnitInField++;
+
+            unitInField.Add(newUnit);
         }
 
 
@@ -133,7 +140,7 @@ public class GameController : Singleton<GameController> {
 
     private IEnumerator EndGameIfUnitsDie()
     {
-        while (numberOfUnitInField > 0) {
+        while (unitInField.Count > 0) {
             if (resouces >= smallestUnitCost) {
                 break;
             }
@@ -143,6 +150,17 @@ public class GameController : Singleton<GameController> {
         {
             Debug.Log("Out of resources! Game over!");
         }
+    }
+
+    public void RemoveOldUnits()
+    {
+        for (int i = 0; i < unitInField.Count; i++)
+        {
+            if (unitInField[i] != null) {
+                unitInField[i].RemoveUnit();
+            }
+        }
+        unitInField.Clear();
     }
 }
 

@@ -10,6 +10,13 @@ public class Building : MonoBehaviour {
     // Use this for initialization
     public  virtual void Awake () {
         myHealth = GetComponent<Health>();
+        myHealth.died += Destroyed;
+    }
+
+
+    public virtual void Destroyed()
+    {
+        gameObject.SetActive(false);
     }
 
 }
