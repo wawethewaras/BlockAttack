@@ -12,19 +12,24 @@ public class EnemyBaseController : Building {
     void Start () {
         goalCount += 1;
         active = true;
+        myHealth.died += RemoveGoal;
     }
 
     void Update() {
-        if (myHealth.CurrentHealth <= 0 && active) {
-            active = false;
-            goalCount--;
-            gameObject.SetActive(false);
-        }
-        if (goalCount <= 0) {
+
+
+    }
+
+    public void RemoveGoal() {
+        active = false;
+        goalCount--;
+        if (goalCount <= 0)
+        {
             print("Game over!");
             WinGameUI.Instance.WinGame();
             Time.timeScale = 0;
         }
-    }
+        gameObject.SetActive(false);
 
+    }
 }

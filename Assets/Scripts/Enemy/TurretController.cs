@@ -30,7 +30,7 @@ public class TurretController : Building {
         switch (currentState)
         {
             case States.Idle:
-                if (Physics2D.Raycast(transform.position, Vector2.up, attackRange, collisionLayerMask))
+                if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask))
                 {
                     currentState = States.Attacking;
                 }

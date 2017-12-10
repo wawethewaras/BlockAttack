@@ -23,12 +23,16 @@ public class BulletController : MonoBehaviour {
         }
     }
 
-
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Bounds") {
-            Destroy(gameObject);
-        }
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
+
+    //void OnTriggerEnter2D(Collider2D other) {
+    //    if (other.tag == "Bounds") {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
 
 }

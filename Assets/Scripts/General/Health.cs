@@ -21,7 +21,7 @@ public class Health : MonoBehaviour {
     public bool destroyWhen0Health = true;
 
     public event Action tookDamage;
-
+    public event Action died;
     void Start () {
         currentHealth = maxHealth;
         mySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -33,14 +33,28 @@ public class Health : MonoBehaviour {
             tookDamage();
         }
     }
-
+    public void Died()
+    {
+        if (died != null)
+        {
+            died();
+        }
+    }
     public void ReduceHealth(int damage) {
         TookDamage();
         currentHealth -= damage;
-        if (currentHealth <= 0 && destroyWhen0Health) {
-            Destroy(gameObject);
+        if (currentHealth <= 0)
+        {
+            Died();
+            if (destroyWhen0Health)
+            {
+                Destroy(gameObject);
+
+            }
         }
-        StartCoroutine(ChangeMaterial());
+        else {
+            StartCoroutine(ChangeMaterial());
+        }
     }
 
     private IEnumerator ChangeMaterial() {

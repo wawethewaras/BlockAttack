@@ -4,6 +4,7 @@ using UnityEngine;
 public class UnitController : MonoBehaviour {
 
     public Animator myAnimator;
+    public Health myHealth;
     public SpriteRenderer mySpriteRenderer;
     public LayerMask enemyCollisionLayerMask;
 
@@ -33,6 +34,8 @@ public class UnitController : MonoBehaviour {
     public void Awake()
     {
         myAnimator = GetComponent<Animator>();
+        myHealth = GetComponent<Health>();
+        myHealth.died += RemoveUnit;
     }
 
     void Update () {
@@ -82,12 +85,22 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Bounds")
-        {
-            Destroy(gameObject);
-        }
+    public void RemoveUnit() {
+        GameController.numberOfUnitInField--;
     }
+
+    void OnBecameInvisible()
+    {
+        GameController.numberOfUnitInField--;
+        Destroy(gameObject);
+    }
+
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.tag == "Bounds")
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
 }

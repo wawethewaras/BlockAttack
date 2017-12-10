@@ -10,11 +10,16 @@ public class GameController : Singleton<GameController> {
 
     public UnitController[] unitPlayerHas;
 
+    private int smallestUnitCost;
+
     public UnitController myUnitMouse { set; get; }
 
     private UnitUIController currentUnitUIController;
     private bool canSpawnUnit = true;
+    public bool mouseUp = true;
 
+
+    public static int numberOfUnitInField = 0;
     public event Action resourcesAltered;
 
     public void ResourcesAltered() {
@@ -27,6 +32,7 @@ public class GameController : Singleton<GameController> {
 
     void Start () {
         theCursor = CursorController.Instance;
+        smallestUnitCost = GetSmallestUnitCost();
         DisableSpawnAreas();
     }
 	
@@ -48,6 +54,10 @@ public class GameController : Singleton<GameController> {
     {
         resouces -= amount;
         ResourcesAltered();
+
+        if (resouces < smallestUnitCost) {
+            StartCoroutine(EndGameIfUnitsDie());
+        }
     }
     public void AddResources(int amount) {
         resouces += amount;
@@ -66,6 +76,16 @@ public class GameController : Singleton<GameController> {
         }
     }
 
+    public int GetSmallestUnitCost() {
+        //Sets base cost to high
+        int cost = 10000;
+        for (int i = 0; i < unitPlayerHas.Length; i++) {
+            if (cost > unitPlayerHas[i].resourceCost) {
+                cost = unitPlayerHas[i].resourceCost;
+            }
+        }
+        return cost;
+    }
     public void MouseHeldDown()
     {
         StartCoroutine(WhileMouseDown());
@@ -73,12 +93,14 @@ public class GameController : Singleton<GameController> {
 
     private IEnumerator WhileMouseDown() {
         EnableSpawnAreas();
+        mouseUp = false;
         theCursor.cursor.gameObject.SetActive(true);
         theCursor.cursor.sprite = myUnitMouse.mySpriteRenderer.sprite;
         theCursor.cursor.gameObject.transform.localScale = myUnitMouse.transform.localScale;
         while (Input.GetMouseButton(0)) {
             yield return null;
         }
+        mouseUp = true;
         myUnitMouse = null;
         DisableSpawnAreas();
         theCursor.cursor.gameObject.SetActive(false);
@@ -96,7 +118,9 @@ public class GameController : Singleton<GameController> {
             UseResources(myUnitMouse.resourceCost);
             UnitSpawnController.currentSpawnArea.ReturnToDefaultColor();
             StartCoroutine(GlobalCooldown());
+            numberOfUnitInField++;
         }
+
 
     }
     private IEnumerator GlobalCooldown()
@@ -105,6 +129,20 @@ public class GameController : Singleton<GameController> {
         yield return new WaitForSeconds(0.25f);
         canSpawnUnit = true;
 
+    }
+
+    private IEnumerator EndGameIfUnitsDie()
+    {
+        while (numberOfUnitInField > 0) {
+            if (resouces >= smallestUnitCost) {
+                break;
+            }
+            yield return null;
+        }
+        if (resouces < smallestUnitCost)
+        {
+            Debug.Log("Out of resources! Game over!");
+        }
     }
 }
 
