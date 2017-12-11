@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class WinGameUI : Singleton<WinGameUI> {
 
-    public Text winGameText;
-    public Text healthStatus;
+    public GameObject winGameScreen;
 
 
     void Start () {
@@ -19,6 +18,10 @@ public class WinGameUI : Singleton<WinGameUI> {
 	}
 
     public void WinGame() {
-        winGameText.gameObject.SetActive(true);
+        winGameScreen.SetActive(true);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

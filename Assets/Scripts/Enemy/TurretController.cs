@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurretController : Building {
 
+    private const int shootRadius = 9;
+
     [SerializeField]
     private int attackRange;
     public LayerMask collisionLayerMask;
@@ -24,13 +26,13 @@ public class TurretController : Building {
     void Start () {
 		
 	}
-	
+
 	void Update () {
 
         switch (currentState)
         {
             case States.Idle:
-                if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask))
+                if (Physics2D.CircleCast(transform.position, shootRadius, Vector2.down, attackRange, collisionLayerMask))
                 {
                     myAnimator.SetBool("isAttacking", true);
                     currentState = States.Attacking;
@@ -43,7 +45,7 @@ public class TurretController : Building {
 
                     StartCoroutine(ShootCooldown(shootCoolDown));
                 }
-                if (Physics2D.Raycast(transform.position, Vector2.down, attackRange, collisionLayerMask) == false)
+                if (Physics2D.CircleCast(transform.position, shootRadius, Vector2.down, attackRange, collisionLayerMask) == false)
                 {
                     myAnimator.SetBool("isAttacking", false);
 

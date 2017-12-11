@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: BatteringRamACO
+  m_Controller: {fileID: 9100000, guid: 6f4e1c69eb0f0e14b8b8d764aa8a3606, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d8feb9c988fca704eaa09563d7322935, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0b978f5ff90d397479ee2dc51ee3648c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 63edff01a40f2574b8e26c9f18843b95, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ad9b53be6ac47bf47b88401f14fab6b0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 16a871fd1dd76b24ea1544e494e8ebc4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b65b009da226857459ccfd9ed877b77b, type: 2}

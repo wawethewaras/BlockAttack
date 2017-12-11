@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494103165889582}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.14, y: -42.41, z: 0}
+  m_LocalPosition: {x: 35.3, y: -22.7, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.055541635, y: 1.2482355}
+  m_Offset: {x: 0.7442198, y: 1.2482355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.3}
@@ -68,7 +68,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.815589, y: 3.5566306}
+  m_Size: {x: 8.947653, y: 3.5566306}
   m_EdgeRadius: 0
 --- !u!82 &82326876677857338
 AudioSource:
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a6107f24588445b646dd3fddca15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 3
   damageMaterial: {fileID: 2100000, guid: 413e2d20f584ac84b9e8e15cce7e7d2f, type: 2}
 --- !u!114 &114505440806760106
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundOnDamage: {fileID: 8300000, guid: f92842336dddc7f439d83d1bb01578a3, type: 3}
   soundOnDestruction: {fileID: 8300000, guid: f92842336dddc7f439d83d1bb01578a3, type: 3}
-  resourcesToGive: 100
+  resourcesToGive: 80
 --- !u!212 &212036766769589498
 SpriteRenderer:
   m_ObjectHideFlags: 1

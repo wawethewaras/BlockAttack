@@ -8,11 +8,12 @@ public class PauseMenuController : Singleton<PauseMenuController> {
 	public bool paused { get; private set; }
     public GameObject menu;
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        UnPauseGame();
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (paused)
             {
@@ -38,7 +39,9 @@ public class PauseMenuController : Singleton<PauseMenuController> {
         Time.timeScale = 1;
     }
 
-    public void RestartGame() { }
+    public void RestartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void Quit() {
         Application.Quit();
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyBaseController : Building {
 
-    
+    private bool alive = true;
     void Start () {
     }
 
@@ -15,17 +15,25 @@ public class EnemyBaseController : Building {
     }
 
     public override void Destroyed() {
-        GameController.Instance.goalCount--;
-        if (GameController.Instance.goalCount <= 0)
-        {
+        if (alive) {
+            alive = false;
+            GameController.Instance.goalCount--;
+            GetComponent<Collider2D>().enabled = false;
 
-            StageManager.Instance.EnableNewStage();
+            //gameObject.SetActive(false);
+            myAudioSource.PlayOneShot(soundOnDamage, 0.3f);
+            myAnimator.SetTrigger("Destroyed");
+            myHealth.enabled = false;
+            if (GameController.Instance.goalCount <= 0)
+            {
 
+                StageManager.Instance.EnableNewStage();
+
+            }
+
+            enabled = false;
         }
-        myAudioSource.PlayOneShot(soundOnDamage, 0.3f);
-        myAnimator.SetTrigger("Destroyed");
-        GetComponent<Collider2D>().enabled = false;
-        enabled = false;
+
 
     }
 

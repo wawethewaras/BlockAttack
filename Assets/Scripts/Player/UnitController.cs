@@ -103,10 +103,12 @@ public class UnitController : MonoBehaviour {
         GetComponent<Collider2D>().enabled = false;
         enabled = false;
         mySpriteRenderer.sortingLayerName = "DeadBodies";
+        GameController.Instance.unitInField.Remove(this);
     }
 
     void OnBecameInvisible()
     {
+        GameController.Instance.unitInField.Remove(this);
         Destroy(gameObject);
     }
 

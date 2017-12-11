@@ -30,6 +30,7 @@ public class Building : MonoBehaviour {
 
     public virtual void Destroyed()
     {
+        myHealth.enabled = false;
         myAudioSource.PlayOneShot(soundOnDamage, 0.3f);
         myAnimator.SetTrigger("Destroyed");
         GetComponent<Collider2D>().enabled = false;

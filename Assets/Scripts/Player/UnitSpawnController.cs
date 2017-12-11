@@ -14,7 +14,7 @@ public class UnitSpawnController : MonoBehaviour {
         myRenderer = GetComponent<SpriteRenderer>();
 
     }
-
+    void Update() { }
     void OnMouseEnter()
     {
         myRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.5f);
@@ -31,4 +31,8 @@ public class UnitSpawnController : MonoBehaviour {
         myRenderer.color = Color.white;
     }
 
+    private void OnDestroy()
+    {
+        spawnAreas.Clear();
+    }
 }

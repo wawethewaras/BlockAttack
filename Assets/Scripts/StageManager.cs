@@ -9,10 +9,13 @@ public class StageManager : Singleton<StageManager> {
     private AudioClip soundWhenStageCompleted;
     [SerializeField]
     private AudioClip soundOnVictory;
+    [SerializeField]
+    private AudioClip soundOnGameOver;
     public const int howMuchCameraMoves = 80;
 
     public Stage[] stages;
     public int currentStage = 0;
+
 
     void Start () {
         myAudioSource = GetComponent<AudioSource>();
@@ -20,10 +23,10 @@ public class StageManager : Singleton<StageManager> {
     }
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Y)) {
-            EnableNewStage();
+        //if (Input.GetKeyDown(KeyCode.Y)) {
+        //    EnableNewStage();
 
-        }
+        //}
     }
 
     public void ChangeCameraPosition() {
@@ -43,6 +46,7 @@ public class StageManager : Singleton<StageManager> {
     }
 
     public void EnableNewStage() {
+        GameController.Instance.AddResources(100);
         GameController.Instance.RemoveOldUnits();
         //DisableStage();
         currentStage++;
@@ -69,21 +73,25 @@ public class StageManager : Singleton<StageManager> {
 
     }
 
-    public void EnableStage() {
-        if (stages.Length > currentStage)
-        {
-            stages[currentStage].EnableStage();
-            SetGoalCount();
-
-            ChangeSpawnArea();
-            ChangeCameraPosition();
-        }
-        else {
-            print("Game over!");
-            WinGameUI.Instance.WinGame();
-            Time.timeScale = 0;
-        }
+    public Stage GetCurrentStage() {
+        return stages[currentStage];
     }
+
+    //public void EnableStage() {
+    //    if (stages.Length > currentStage)
+    //    {
+    //        stages[currentStage].EnableStage();
+    //        SetGoalCount();
+    //        GameController.Instance.AddResources(100);
+    //        ChangeSpawnArea();
+    //        ChangeCameraPosition();
+    //    }
+    //    else {
+    //        print("Game over!");
+    //        WinGameUI.Instance.WinGame();
+    //        Time.timeScale = 0;
+    //    }
+    //}
     public void DisableStage() {
         stages[currentStage].DisableStage();
     }
@@ -106,6 +114,11 @@ public class StageManager : Singleton<StageManager> {
         myAudioSource.PlayOneShot(soundOnVictory, 0.3f);
 
     }
+    public void PlaySoundOnGameOver()
+    {
+        myAudioSource.PlayOneShot(soundOnGameOver, 0.3f);
+
+    }
 }
 [System.Serializable]
 public class Stage {
@@ -124,3 +137,4 @@ public class Stage {
 
 
 }
+

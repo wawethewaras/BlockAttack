@@ -23,6 +23,7 @@ public class GameController : Singleton<GameController> {
     //public static int numberOfUnitInField = 0;
     public List<UnitController> unitInField = new List<UnitController>();
 
+    public SpawnAreas spawnAreas;
 
     public event Action resourcesAltered;
 
@@ -70,15 +71,17 @@ public class GameController : Singleton<GameController> {
     }
 
     public void EnableSpawnAreas() {
-        foreach(UnitSpawnController game in UnitSpawnController.spawnAreas) {
-            game.gameObject.SetActive(true);
-        }
+        //foreach(UnitSpawnController game in UnitSpawnController.spawnAreas) {
+        //    game.gameObject.SetActive(true);
+        //}
+        spawnAreas.EnableSpawns(StageManager.Instance.GetCurrentStage().goals);
     }
     public void DisableSpawnAreas() {
-        foreach (UnitSpawnController game in UnitSpawnController.spawnAreas)
-        {
-            game.gameObject.SetActive(false);
-        }
+        //foreach (UnitSpawnController game in UnitSpawnController.spawnAreas)
+        //{
+        //    game.gameObject.SetActive(false);
+        //}
+        spawnAreas.DisableSpawns();
     }
 
     public int GetSmallestUnitCost() {
@@ -116,17 +119,19 @@ public class GameController : Singleton<GameController> {
 
     void SpawnUnit()
     {
-        float offset = UnityEngine.Random.Range(-2, 2);
         if (canSpawnUnit && myUnitMouse != null && EnoughResources(myUnitMouse.resourceCost))
         {
-            Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x, UnitSpawnController.currentSpawnArea.transform.position.y + offset);
+            float offsetY = UnityEngine.Random.Range(-2, 2);
+            float offsetX = UnityEngine.Random.Range(-3.5f,3.5f);
+            Vector2 spawnPosition = new Vector2(UnitSpawnController.currentSpawnArea.transform.position.x + offsetX, UnitSpawnController.currentSpawnArea.transform.position.y + offsetY);
 
             UnitController newUnit = Instantiate(myUnitMouse, spawnPosition, transform.rotation);
-            UseResources(myUnitMouse.resourceCost);
             UnitSpawnController.currentSpawnArea.ReturnToDefaultColor();
             StartCoroutine(GlobalCooldown());
 
             unitInField.Add(newUnit);
+            UseResources(myUnitMouse.resourceCost);
+
         }
 
 
@@ -150,6 +155,7 @@ public class GameController : Singleton<GameController> {
         if (resouces < smallestUnitCost)
         {
             Debug.Log("Out of resources! Game over!");
+            GameOver();
         }
     }
 
@@ -158,10 +164,51 @@ public class GameController : Singleton<GameController> {
         for (int i = 0; i < unitInField.Count; i++)
         {
             if (unitInField[i] != null) {
-                unitInField[i].Dead();
+                Destroy(unitInField[i].gameObject);
             }
         }
         unitInField.Clear();
+    }
+
+    public void GameOver() {
+        StageManager.Instance.PlaySoundOnGameOver();
+        GameOverUI.Instance.GameOver();
+        Time.timeScale = 0;
+
+    }
+
+
+
+}
+
+[System.Serializable]
+public class SpawnAreas
+{
+    public UnitSpawnController spawn1;
+    public UnitSpawnController spawn2;
+    public UnitSpawnController spawn3;
+
+    public void DisableSpawns()
+    {
+        spawn1.gameObject.SetActive(false);
+        spawn2.gameObject.SetActive(false);
+        spawn3.gameObject.SetActive(false);
+
+    }
+    public void EnableSpawns(int numberOfSpawns)
+    {
+        if (numberOfSpawns >= 1)
+        {
+            spawn1.gameObject.SetActive(true);
+        }
+        if (numberOfSpawns >= 2)
+        {
+            spawn2.gameObject.SetActive(true);
+        }
+        if (numberOfSpawns >= 3)
+        {
+            spawn3.gameObject.SetActive(true);
+        }
     }
 }
 

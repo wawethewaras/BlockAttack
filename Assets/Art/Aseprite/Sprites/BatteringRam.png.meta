@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8b11b37e09fe5ba409acf8a1a7453c42
-timeCreated: 1512929467
+timeCreated: 1512941806
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,12 @@ TextureImporter:
     21300002: BatteringRam 1
     21300004: BatteringRam 2
     21300006: BatteringRam 3
+    21300008: BatteringRam 4
+    21300010: BatteringRam 5
+    21300012: BatteringRam 6
+    21300014: BatteringRam 7
+    21300016: BatteringRam 8
+    21300018: BatteringRam 9
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -61,7 +67,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -77,7 +83,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 384
         width: 128
         height: 128
       alignment: 9
@@ -91,7 +97,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 128
+        y: 384
         width: 128
         height: 128
       alignment: 9
@@ -104,8 +110,8 @@ TextureImporter:
       name: BatteringRam 2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 256
+        y: 384
         width: 128
         height: 128
       alignment: 9
@@ -118,8 +124,92 @@ TextureImporter:
       name: BatteringRam 3
       rect:
         serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 5
+      rect:
+        serializedVersion: 2
         x: 128
-        y: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BatteringRam 9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
         width: 128
         height: 128
       alignment: 9
